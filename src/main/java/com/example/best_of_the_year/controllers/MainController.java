@@ -23,20 +23,14 @@ public class MainController {
     @GetMapping("/movies")
     public String movies(Model model) {
         List<Movie> movies = getBestMovies();
-        String movieTitles = movies.stream()
-                .map(Movie::getTitle)
-                .reduce((a, b) -> a + ", " + b).orElse("");
-        model.addAttribute("list", movieTitles);
+        model.addAttribute("movies", movies);
         return "movies";
     }
 
     @GetMapping("/songs")
     public String songs(Model model) {
         List<Song> songs = getBestSongs();
-        String songTitles = songs.stream()
-                .map(Song::getTitle)
-                .reduce((a, b) -> a + ", " + b).orElse("");
-        model.addAttribute("list", songTitles);
+        model.addAttribute("songs", songs);
         return "songs";
     }
 
@@ -46,8 +40,8 @@ public class MainController {
                 .filter(m -> m.getId() == id)
                 .findFirst()
                 .orElse(null);
-        model.addAttribute("item", movie != null ? movie.getTitle() : "Movie not found");
-        return "detail";
+        model.addAttribute("movie", movie);
+        return "movie-detail";
     }
 
     @GetMapping("/songs/{id}")
@@ -56,9 +50,10 @@ public class MainController {
                 .filter(s -> s.getId() == id)
                 .findFirst()
                 .orElse(null);
-        model.addAttribute("item", song != null ? song.getTitle() : "Song not found");
-        return "detail";
+        model.addAttribute("song", song);
+        return "song-detail";
     }
+
 
     private List<Movie> getBestMovies() {
         return Arrays.asList(

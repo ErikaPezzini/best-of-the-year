@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head('Movie Detail')"></head>
+<body class="bg-light">
+<div th:replace="fragments :: navbar"></div>
+<div class="container mt-4 text-center">
+    <h2>Dettaglio Film</h2>
+    <div class="card p-4 shadow-sm mx-auto" style="max-width: 600px;">
+        <p th:text="${movie != null ? movie.title : 'Film non trovato'}"></p>
+    </div>
+</div>
+</body>
+</html>
